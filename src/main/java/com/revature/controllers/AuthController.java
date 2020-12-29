@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import com.revature.models.User;
 import com.revature.services.AuthService;
 import com.revature.templates.LoginTemplate;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
