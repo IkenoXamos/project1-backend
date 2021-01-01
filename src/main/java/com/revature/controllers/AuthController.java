@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.revature.dtos.LoginDTO;
 import com.revature.models.User;
 import com.revature.services.AuthService;
-import com.revature.templates.LoginTemplate;
 
 @CrossOrigin
 @RestController
@@ -23,8 +23,8 @@ public class AuthController {
 	private AuthService authService;
 	
 	@PostMapping("/login")
-	public ResponseEntity<User> login(@Valid @RequestBody LoginTemplate template) {
-		return ResponseEntity.ok(this.authService.login(template.getUsername(), template.getPassword()));
+	public ResponseEntity<User> login(@Valid @RequestBody LoginDTO dto) {
+		return ResponseEntity.ok(this.authService.login(dto.getUsername(), dto.getPassword()));
 	}
 	
 	@PostMapping("/logout")

@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.revature.annotations.Authorized;
+import com.revature.dtos.ResolveReceiptDTO;
 import com.revature.models.Reimbursement;
 import com.revature.models.UserRole;
 import com.revature.services.ReimbursementService;
-import com.revature.templates.ResolveTemplate;
 
 @CrossOrigin
 @RestController
@@ -81,7 +81,7 @@ public class ReimbursementController {
 	 * such as amount or description.
 	 * 
 	 * If a Reimbursement needs to be resolved,
-	 * {@link #resolveReimbursement(int, ResolveTemplate) resolveReimbursement}
+	 * {@link #resolveReimbursement(int, ResolveReceiptDTO) resolveReimbursement}
 	 * should be used instead.
 	 */
 	@PutMapping
@@ -94,16 +94,16 @@ public class ReimbursementController {
 	 * This request is leveraged to resolve a Pending Reimbursement.
 	 * 
 	 * @param id       The id of the Reimbursement that is being resolved
-	 * @param template Includes the status and resolver to finalize the
+	 * @param dto Includes the status and resolver to finalize the
 	 *                 reimbursement
 	 */
 	@PutMapping("/{id}")
 	@Authorized(allowedRoles = UserRole.Admin)
 	public ResponseEntity<Reimbursement> resolveReimbursement(@PathVariable("id") int id,
-			@Valid @RequestBody ResolveTemplate template) {
+			@Valid @RequestBody ResolveReceiptDTO dto) {
 		Reimbursement reimbursement = this.reimbursementService.findById(id);
 
-		reimbursement.resolve(template.getStatus(), template.getResolver());
+		reimbursement.resolve(dto.getStatus(), dto.getResolver());
 
 		return ResponseEntity.ok(this.reimbursementService.update(reimbursement));
 	}
