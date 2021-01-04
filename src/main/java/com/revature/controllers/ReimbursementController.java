@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.revature.annotations.Authorized;
+import com.revature.annotations.DTO;
+import com.revature.dtos.CreateReimbursementDTO;
 import com.revature.dtos.ResolveReceiptDTO;
 import com.revature.models.Reimbursement;
 import com.revature.models.UserRole;
@@ -42,7 +44,7 @@ public class ReimbursementController {
 	public ResponseEntity<Reimbursement> findById(@PathVariable("id") int id) {
 		return ResponseEntity.ok(this.reimbursementService.findById(id));
 	}
-	
+
 	@GetMapping("/author/{id}")
 	public ResponseEntity<List<Reimbursement>> findByAuthorId(@PathVariable("id") int id) {
 		return ResponseEntity.ok(this.reimbursementService.findByAuthorId(id));
@@ -50,7 +52,7 @@ public class ReimbursementController {
 
 	@PostMapping
 	@Authorized(allowedRoles = { UserRole.Admin, UserRole.Employee })
-	public ResponseEntity<Reimbursement> createReimbursement(@Valid @RequestBody Reimbursement reimbursement) {
+	public ResponseEntity<Reimbursement> createReimbursement(@DTO(CreateReimbursementDTO.class) Reimbursement reimbursement) {
 		this.reimbursementService.insert(reimbursement);
 
 		return ResponseEntity.created(URI.create(String.format("/reimbursements/%d", reimbursement.getId())))
@@ -93,18 +95,13 @@ public class ReimbursementController {
 	/**
 	 * This request is leveraged to resolve a Pending Reimbursement.
 	 * 
-	 * @param id       The id of the Reimbursement that is being resolved
-	 * @param dto Includes the status and resolver to finalize the
-	 *                 reimbursement
+	 * @param id  The id of the Reimbursement that is being resolved
+	 * @param dto Includes the status and resolver to finalize the reimbursement
 	 */
 	@PutMapping("/{id}")
 	@Authorized(allowedRoles = UserRole.Admin)
 	public ResponseEntity<Reimbursement> resolveReimbursement(@PathVariable("id") int id,
-			@Valid @RequestBody ResolveReceiptDTO dto) {
-		Reimbursement reimbursement = this.reimbursementService.findById(id);
-
-		reimbursement.resolve(dto.getStatus(), dto.getResolver());
-
+			@DTO(ResolveReceiptDTO.class) Reimbursement reimbursement) {		
 		return ResponseEntity.ok(this.reimbursementService.update(reimbursement));
 	}
 

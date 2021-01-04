@@ -30,11 +30,11 @@ import lombok.ToString;
 public class Reimbursement {
 
 	@Id
-	@PositiveOrZero
+//	@PositiveOrZero
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
-	@PositiveOrZero
+//	@PositiveOrZero
 	private double amount;
 
 	@JsonProperty(required = false)
@@ -51,13 +51,13 @@ public class Reimbursement {
 	@JsonProperty(required = false)
 	private byte[] receipt;
 
-	@NotNull
+//	@NotNull
 	private ReimbursementStatus status;
 
-	@NotNull
+//	@NotNull
 	private ReimbursementType type;
 
-	@NotNull
+//	@NotNull
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
 	private User author;
 

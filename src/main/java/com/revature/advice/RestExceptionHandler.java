@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.revature.errorhandling.ApiError;
+import com.revature.errorhandling.ApiValidationError;
 import com.revature.exceptions.AuthorizationException;
 import com.revature.exceptions.ReceiptException;
 import com.revature.exceptions.ReimbursementNotFoundException;
 import com.revature.exceptions.ReimbursementNotPendingException;
 import com.revature.exceptions.UserNotFoundException;
-import com.revature.util.ApiError;
-import com.revature.util.ApiValidationError;
 
 /**
  * This class is responsible for intercepting exceptions thrown throughout the

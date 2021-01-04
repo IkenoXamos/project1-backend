@@ -5,5 +5,5 @@ INSERT INTO USER (username, password, first_name, last_name, email, role) VALUES
 	'Matthew',
 	'Oberlies',
 	'matthew.oberlies@revature.com',
-	1
+	0
 );

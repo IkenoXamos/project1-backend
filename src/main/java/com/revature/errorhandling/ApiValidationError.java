@@ -1,4 +1,4 @@
-package com.revature.util;
+package com.revature.errorhandling;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

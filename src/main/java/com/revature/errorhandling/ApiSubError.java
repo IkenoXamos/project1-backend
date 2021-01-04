@@ -1,4 +1,4 @@
-package com.revature.util;
+package com.revature.errorhandling;
 
 public abstract class ApiSubError {
 
